@@ -2,11 +2,11 @@
 a simple, strictly typed luau keybind module built on top of Roblox’s ContextActionService
 
 ## it provides:
-action to input mapping
-enable/disable per action
-dynamic rebinding
-multiple inputs per action
-change event for listener sync
+action to input mapping,
+enable/disable per action,
+dynamic rebinding,
+multiple inputs per action,
+change event for listener sync,
 optional touch button support for mobile
 
 ## types
