@@ -13,23 +13,28 @@ optional touch button support for mobile
 
 ### actionName
 ```luau
-type actionName = string```
+type actionName = string
+```
 
 ### input
-```type input = Enum.KeyCode | Enum.UserInputType```
+```luau
+type input = Enum.KeyCode | Enum.UserInputType
+```
 
 #### examples
-```
+```luau
 Enum.KeyCode.Shift
 Enum.UserInputType.MouseButton1
 Enum.KeyCode.ButtonA
 ```
 
 ### actionState
-```type actionState = Enum.UserInputState```
+```luau
+type actionState = Enum.UserInputState
+```
 
 ### actionCallback
-```
+```luau
 (
     action: actionName,
     state: Enum.UserInputState,
@@ -39,7 +44,7 @@ Enum.KeyCode.ButtonA
 ```
 
 ### bindOptions
-```
+```luau
 {
     sinkProcessed: boolean?,
     createTouchButton: boolean?,
@@ -50,7 +55,7 @@ Enum.KeyCode.ButtonA
 ```
 
 ### bind
-```
+```luau
 {
     name: string,
     inputs: {input},
@@ -61,10 +66,12 @@ Enum.KeyCode.ButtonA
 ```
 
 ### constructor
-```keybinds.new(): keybinds```
+```luau
+keybinds.new(): keybinds
+```
 
 #### example
-```
+```luau
 local keybinds = require(path.to.module)
 
 local binds = keybinds.new()
@@ -78,7 +85,7 @@ creates or replaces a bind
 #### examples
 
 ##### 1
-```
+```luau
 binds:bind(
     "sprint",
     Enum.KeyCode.Shift,
@@ -93,7 +100,7 @@ binds:bind(
 ```
 
 ##### 2
-```
+```luau
 binds:bind(
     "interact",
     {Enum.KeyCode.F, Enum.KeyCode.ButtonX},
@@ -105,7 +112,9 @@ binds:bind(
 removes a bind, returns false if action did not exist
 
 #### example
-```binds:unbind("sprint")```
+```luau
+binds:unbind("sprint")
+```
 
 ### :has(action): boolean
 returns whether a bind exists
@@ -117,7 +126,10 @@ returns the bind object if it exists
 enables or disables an action without unbinding
 
 #### example
-```binds:setenabled("Jump", false)``` -> callback will not fire, input will pass through
+```luau
+binds:setenabled("Jump", false)
+```
+-> callback will not fire, input will pass through
 
 ### :setCallback(action, callback): boolean
 replaces the callback at runtime
@@ -138,7 +150,7 @@ unbinds all actions and clears the registry
 :changed(): changedEvent -> returns a custom event object -> bind will be nil if action was unbound
 
 #### example:
-```
+```luau
 local disconnect = binds:changed():Connect(function(action, bind)
     print("bind changed: " .. action .. ", " .. bind)
 end)
