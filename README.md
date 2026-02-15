@@ -80,7 +80,7 @@ local binds = keybinds.new()
 ## api reference
 
 ```luau
-### :bind(action, inputs, callback, options?): bind
+:bind(action, inputs, callback, options?): bind
 ```
 creates or replaces a bind
 
