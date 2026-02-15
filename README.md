@@ -7,7 +7,8 @@ enable/disable per action,
 dynamic rebinding,
 multiple inputs per action,
 change event for listener sync,
-optional touch button support for mobile
+optional custom touch button support for mobile,
+and safe cleaning
 
 ## types
 
@@ -22,7 +23,7 @@ type input = Enum.KeyCode | Enum.UserInputType
 ```
 #### examples
 ```luau
-Enum.KeyCode.Shift
+Enum.KeyCode.LeftShift
 Enum.UserInputType.MouseButton1
 Enum.KeyCode.ButtonA
 ```
@@ -51,6 +52,21 @@ type actionState = Enum.UserInputState
     touchButtonImage: string?,
     touchButtonTitle: string?
 }
+```
+touch button properties are set if createTouchButton = true
+##### example
+```luau
+binds:bind(
+    "sprint",
+    Enum.KeyCode.LeftShift,
+    callback,
+    {
+        createTouchButton = true,
+        touchButtonPosition = UDim2.fromScale(0.8, 0.7),
+        touchButtonImage = "rbxassetid://123456",
+        touchButtonTitle = "Sprint"
+    }
+)
 ```
 
 ### bind
@@ -87,7 +103,7 @@ creates or replaces a bind
 ```luau
 binds:bind(
     "sprint",
-    Enum.KeyCode.Shift,
+    Enum.KeyCode.LeftShift,
     function(action, state)
         if state == Enum.UserInputState.Begin then
             print("sprint down")
@@ -163,17 +179,39 @@ adds a new input to an action if not already present
 ```
 removes a specific input from an action
 
+### rebind
+```luau
+:rebind(action, onComplete?): boolean
+```
+waits for the next user input and replaces the action’s inputs -> returns false if the action does not exist
+#### example
+```luau
+binds:rebind("sprint", function(newInput)
+    print("sprint rebound to ", newInput)
+end)
+```
+
 ### clear
 ```luau
 :clear()
 ```
 unbinds all actions and clears the registry
 
+### destroy
+```luau
+:destroy()
+```
+unbinds all actions, disconnects all listeners, and permanently invalidates the instance
+#### example
+```luau
+binds:destroy()
+```
+
 ### change event
 ```luau
 :changed(): changedEvent
 ```
--> returns a custom event object -> bind will be nil if action was unbound
+-> returns a custom event object -> bind will be nil if action was unbound -> all listeners are disconnected when destroy() is called
 #### example:
 ```luau
 local disconnect = binds:changed():Connect(function(action, bind)
