@@ -353,6 +353,29 @@ function keybinds:setenabled(
 	return true
 end
 
+function keybinds:toggleEnabled(action: actionName): boolean
+	local bind = self._binds[action]
+
+	if bind == nil then
+		return false
+	end
+
+	return self:setenabled(
+		action,
+		not bind.enabled
+	)
+end
+
+function keybinds:isEnabled(action: actionName): boolean
+	local bind = self._binds[action]
+
+	if bind == nil then
+		return false
+	end
+
+	return bind.enabled
+end
+
 function keybinds:setCallback(
 	action: actionName,
 	callback: actionCallback
@@ -477,6 +500,37 @@ function keybinds:removeInput(
 	return true
 end
 
+function keybinds:getInputs(action: actionName): {input}?
+	local bind = self._binds[action]
+
+	if bind == nil then
+		return nil
+	end
+
+	return table.clone(bind.inputs)
+end
+
+function keybinds:getAllInputs(): {[actionName]: bind}
+	local out = {}
+
+	if self._binds == nil then
+		return out
+	end
+
+	for action, bind in self._binds do
+		out[action] =
+			{
+				name = bind.name,
+				inputs = table.clone(bind.inputs),
+				enabled = bind.enabled,
+				callback = bind.callback,
+				options = bind.options
+			}
+	end
+
+	return out
+end
+
 local function inputFromInputObject(io: InputObject): input?
 	if io.KeyCode ~= Enum.KeyCode.Unknown then
 		return io.KeyCode
@@ -528,6 +582,28 @@ function keybinds:rebind(
 	)
 
 	return true
+end
+
+function keybinds:serialize(): {[actionName]: {input}}
+	local data = {}
+
+	if self._binds == nil then
+		return data
+	end
+
+	for action, bind in self._binds do
+		data[action] = table.clone(bind.inputs)
+	end
+
+	return data
+end
+
+function keybinds:load(data: {[actionName]: {input}})
+	for action, inputs in data do
+		if self._binds[action] then
+			self:setInputs(action, inputs)
+		end
+	end
 end
 
 function keybinds:clear(): ()
