@@ -109,9 +109,7 @@ binds:bind(
     callback
 )
 ```
-
-
-
+---
 ```luau
 :unbind(action): boolean
 ```
@@ -121,17 +119,17 @@ removes a bind, returns false if action did not exist
 ```luau
 binds:unbind("sprint")
 ```
-
+---
 ```luau
 :has(action): boolean
 ```
 returns whether a bind exists
-
+---
 ```luau
 :get(action): bind?
 ```
 returns the bind object if it exists
-
+---
 ```luau
 :setenabled(action, enabled): boolean
 ```
@@ -142,32 +140,32 @@ enables or disables an action without unbinding
 binds:setenabled("Jump", false)
 ```
 -> callback will not fire, input will pass through
-
+---
 ```luau
 :setCallback(action, callback): boolean
 ```
 replaces the callback at runtime
-
+---
 ```luau
 :setInputs(action, inputs): boolean
 ```
 replaces all inputs for an action -> unbinds from ContextActionService, rebinds with new inputs
-
+---
 ```luau
 :addInput(action, input): boolean
 ```
 adds a new input to an action if not already present
-
+---
 ```luau
 :removeInput(action, input): boolean
 ```
 removes a specific input from an action
-
+---
 ```luau
 :clear()
 ```
 unbinds all actions and clears the registry
-
+---
 ### change event
 ```luau
 :changed(): changedEvent
