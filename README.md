@@ -79,7 +79,9 @@ local binds = keybinds.new()
 
 ## api reference
 
+```luau
 ### :bind(action, inputs, callback, options?): bind
+```
 creates or replaces a bind
 
 #### examples
@@ -108,7 +110,9 @@ binds:bind(
 )
 ```
 
-### :unbind(action): boolean
+```luau
+:unbind(action): boolean
+```
 removes a bind, returns false if action did not exist
 
 #### example
@@ -116,13 +120,19 @@ removes a bind, returns false if action did not exist
 binds:unbind("sprint")
 ```
 
-### :has(action): boolean
+```luau
+:has(action): boolean
+```
 returns whether a bind exists
 
-### :get(action): bind?
+```luau
+:get(action): bind?
+```
 returns the bind object if it exists
 
-### :setenabled(action, enabled): boolean
+```luau
+:setenabled(action, enabled): boolean
+```
 enables or disables an action without unbinding
 
 #### example
@@ -131,23 +141,36 @@ binds:setenabled("Jump", false)
 ```
 -> callback will not fire, input will pass through
 
-### :setCallback(action, callback): boolean
+```luau
+:setCallback(action, callback): boolean
+```
 replaces the callback at runtime
 
-### :setInputs(action, inputs): boolean
+```luau
+:setInputs(action, inputs): boolean
+```
 replaces all inputs for an action -> unbinds from ContextActionService, rebinds with new inputs
 
-### :addInput(action, input): boolean
+```luau
+:addInput(action, input): boolean
+```
 adds a new input to an action if not already present
 
-### :removeInput(action, input): boolean
+```luau
+:removeInput(action, input): boolean
+```
 removes a specific input from an action
 
-### :clear()
+```luau
+:clear()
+```
 unbinds all actions and clears the registry
 
 ### change event
-:changed(): changedEvent -> returns a custom event object -> bind will be nil if action was unbound
+```luau
+:changed(): changedEvent
+```
+-> returns a custom event object -> bind will be nil if action was unbound
 
 #### example:
 ```luau
@@ -156,4 +179,7 @@ local disconnect = binds:changed():Connect(function(action, bind)
 end)
 ```
 
-returns a disconnect function: disconnect()
+returns a disconnect function:
+```luau
+disconnect()
+```
