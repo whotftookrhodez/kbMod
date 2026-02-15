@@ -20,7 +20,6 @@ type actionName = string
 ```luau
 type input = Enum.KeyCode | Enum.UserInputType
 ```
-
 #### examples
 ```luau
 Enum.KeyCode.Shift
@@ -69,7 +68,6 @@ type actionState = Enum.UserInputState
 ```luau
 keybinds.new(): keybinds
 ```
-
 #### example
 ```luau
 local keybinds = require(path.to.module)
@@ -79,13 +77,12 @@ local binds = keybinds.new()
 
 ## api reference
 
+### bind
 ```luau
 :bind(action, inputs, callback, options?): bind
 ```
 creates or replaces a bind
-
 #### examples
-
 ##### 1
 ```luau
 binds:bind(
@@ -100,7 +97,6 @@ binds:bind(
     end
 )
 ```
-
 ##### 2
 ```luau
 binds:bind(
@@ -109,76 +105,81 @@ binds:bind(
     callback
 )
 ```
----
+
+### unbind
 ```luau
 :unbind(action): boolean
 ```
 removes a bind, returns false if action did not exist
-
 #### example
 ```luau
 binds:unbind("sprint")
 ```
----
+
+### has
 ```luau
 :has(action): boolean
 ```
 returns whether a bind exists
----
+
+### get
 ```luau
 :get(action): bind?
 ```
 returns the bind object if it exists
----
+
+### setenabled
 ```luau
 :setenabled(action, enabled): boolean
 ```
 enables or disables an action without unbinding
-
 #### example
 ```luau
 binds:setenabled("Jump", false)
 ```
 -> callback will not fire, input will pass through
----
+
+### setCallback
 ```luau
 :setCallback(action, callback): boolean
 ```
 replaces the callback at runtime
----
+
+### setInputs
 ```luau
 :setInputs(action, inputs): boolean
 ```
 replaces all inputs for an action -> unbinds from ContextActionService, rebinds with new inputs
----
+
+### addInput
 ```luau
 :addInput(action, input): boolean
 ```
 adds a new input to an action if not already present
----
+
+### removeInput
 ```luau
 :removeInput(action, input): boolean
 ```
 removes a specific input from an action
----
+
+### clear
 ```luau
 :clear()
 ```
 unbinds all actions and clears the registry
----
+
 ### change event
 ```luau
 :changed(): changedEvent
 ```
 -> returns a custom event object -> bind will be nil if action was unbound
-
 #### example:
 ```luau
 local disconnect = binds:changed():Connect(function(action, bind)
     print("bind changed: " .. action .. ", " .. bind)
 end)
 ```
-
 returns a disconnect function:
 ```luau
 disconnect()
