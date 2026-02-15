@@ -12,7 +12,8 @@ optional touch button support for mobile
 ## types
 
 ### actionName
-```type actionName = string```
+```luau
+type actionName = string```
 
 ### input
 ```type input = Enum.KeyCode | Enum.UserInputType```
