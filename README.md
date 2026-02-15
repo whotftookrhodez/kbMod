@@ -151,7 +151,7 @@ returns the bind object if it exists
 enables or disables an action without unbinding
 #### example
 ```luau
-binds:setenabled("Jump", false)
+binds:setenabled("sprint", false)
 ```
 -> callback will not fire, input will pass through
 
