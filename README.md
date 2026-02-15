@@ -155,6 +155,30 @@ binds:setenabled("Jump", false)
 ```
 -> callback will not fire, input will pass through
 
+### toggleEnabled
+```luau
+:toggleEnabled(action): boolean
+```
+toggles the enabled state of a bind
+#### example
+```luau
+binds:toggleEnabled("sprint")
+```
+-> returns false if the action does not exist
+
+### isEnabled
+```luau
+:isEnabled(action): boolean
+```
+returns whether an action is currently enabled
+#### example
+```luau
+if binds:isEnabled("sprint") then
+    print("sprinting")
+end
+```
+-> returns false if the action does not exist
+
 ### setCallback
 ```luau
 :setCallback(action, callback): boolean
@@ -179,6 +203,36 @@ adds a new input to an action if not already present
 ```
 removes a specific input from an action
 
+### getInputs
+```luau
+:getInputs(action): {input}?
+```
+returns a cloned array of inputs for the action
+#### example
+```luau
+local inputs = binds:getInputs("sprint")
+```
+-> returns nil if the action does not exist
+
+### getAllInputs
+```luau
+:getAllInputs(): {[actionName]: bind}
+```
+returns a shallow copy of all binds
+#### example shallow copy
+```luau
+{
+    [actionName]:
+        {
+            name: actionName,
+            inputs: {input},
+            enabled: boolean,
+            callback: actionCallback,
+            options: bindOptions
+        }
+}
+```
+
 ### rebind
 ```luau
 :rebind(action, onComplete?): boolean
@@ -189,6 +243,31 @@ waits for the next user input and replaces the action’s inputs -> returns fals
 binds:rebind("sprint", function(newInput)
     print("sprint rebound to ", newInput)
 end)
+```
+
+### serialize
+```luau
+:serialize(): {[actionName]: {input}}
+```
+returns a serializable table of
+```luau
+{
+    actionName = {inputs}
+}
+```
+#### example
+```luau
+local data = binds:serialize()
+```
+
+### load
+```luau
+:load(data: {[actionName]: {input}})
+```
+loads serialized input data back into existing binds
+#### example
+```luau
+binds:load(savedData)
 ```
 
 ### clear
