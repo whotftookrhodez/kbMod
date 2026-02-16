@@ -144,14 +144,14 @@ returns whether a bind exists
 ```
 returns the bind object if it exists
 
-### setenabled
+### setEnabled
 ```luau
-:setenabled(action, enabled): boolean
+:setEnabled(action, enabled): boolean
 ```
 enables or disables an action without unbinding
 #### example
 ```luau
-binds:setenabled("sprint", false)
+binds:setEnabled("sprint", false)
 ```
 -> callback will not fire, input will pass through
 
