@@ -328,7 +328,7 @@ function keybinds:unbind(action: actionName): boolean
 	return true
 end
 
-function keybinds:setenabled(
+function keybinds:setEnabled(
 	action: actionName,
 	enabled: boolean
 ): boolean
@@ -360,7 +360,7 @@ function keybinds:toggleEnabled(action: actionName): boolean
 		return false
 	end
 
-	return self:setenabled(
+	return self:setEnabled(
 		action,
 		not bind.enabled
 	)
